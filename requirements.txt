@@ -1,0 +1,8 @@
+sanic==21.9.1
+sanic-openapi==21.6.1
+sanic-routing==0.7.1
+ujson==4.2.0
+uvloop==0.16.0
+websockets==10.0
+PyMySQL==1.0.2
+requests==2.26.0
