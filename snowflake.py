@@ -8,8 +8,9 @@ class snowflake(object):
         self.md5 = hashlib.md5()
 
 
-    def generate(self, username) -> int:
-        ans = '1'
+    def generate(self, username, header) -> int:
+        #header is an 1byte stirng that specify the type of the series number
+        ans = header
         t = time.time()
         t = int(round(t * 1000))
         print(len(str(t)))
@@ -32,3 +33,13 @@ class snowflake(object):
             ans = raw + tail
             ans = int(ans)
         return ans
+
+
+# def main() -> None:
+#     sf = snowflake()
+#     val = sf.generate("010ybb")
+#     print(val)
+#     print(len(str(val)))
+
+# if __name__ == "__main__":
+#     main()
