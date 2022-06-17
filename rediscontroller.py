@@ -1,37 +1,10 @@
-import imp
-from multiprocessing.dummy import Process
 import redis
 import pymysql
-import sqllib
-
-def func1(cursor, table, column, value):
-    sql1 = "select * from %s where %s='%s'" % (table, column, value)
-    cursor.excute(sql1)
-    result = cursor.fetchall()
-    return result
-
-def init(cursor):
-    sql1 = """CREATE TABLE IF NOT EXISTS userinfo (
-    username  CHAR(20) NOT NULL,
-    password  CHAR(20) NOT NULL,
-    token CHAR(30) NOT NULL)"""
-    cursor.execute(sql1)
-    sql2 = """CREATE TABLE IF NOT EXISTS devicesinfo (
-    device CHAR(20) NOT NULL,
-    devicename CHAR(20) NOT NULL,
-    status CHAR(20) NOT NULL,
-    updatetime Datetime,
-    humidity CHAR(20) NOT NULL,
-    temperature CHAR(20) NOT NULL
-    )"""
-    cursor.execute(sql2)
-    cursor.execute("""CREATE TABLE IF NOT EXISTS usersanddevices(
-    username  CHAR(20) NOT NULL,
-    device CHAR(20) NOT NULL)""")
+from sqllib import sqlconnector
 
 class redisconnector(object):
-    def __init__(self, host, port, user, passwd, database, init):
-        self.sqlconnector = sqllib.__init__(host, user, passwd, database, init)
+    def __init__(self, host, port, user, passwd, database):
+        self.sqlconnector = sqlconnector(host, user, passwd, database)
         self.pool = redis.ConnectionPool(host = host, port = port, decode_responses = True)
         self.r = redis.Redis(connection_pool=self.pool)
         self.update_redis()
