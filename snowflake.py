@@ -7,9 +7,8 @@ class snowflake(object):
         self.hashset = set()
         self.md5 = hashlib.md5()
 
-
     def generate(self, username, header) -> int:
-        #header is an 1byte stirng that specify the type of the series number
+        #header is a 4byte stirng that specify the type of the series number
         ans = header
         t = time.time()
         t = int(round(t * 1000))
@@ -23,13 +22,13 @@ class snowflake(object):
         userinfo = str(userinfo).rjust(8, '0')
         print(userinfo)
         raw = ans + t + userinfo
-        tail = random.randint(0, 10**10)
-        tail = str(tail).rjust(10, '0')
+        tail = random.randint(0, 10**7)
+        tail = str(tail).rjust(7, '0')
         ans = raw + tail
         ans = int(ans)
         while ans in self.hashset:
-            tail = random.randint(0, 10**10)
-            tail = str(tail).rjust(10, '0')
+            tail = random.randint(0, 10**7)
+            tail = str(tail).rjust(7, '0')
             ans = raw + tail
             ans = int(ans)
         return ans
