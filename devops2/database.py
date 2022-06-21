@@ -1,5 +1,4 @@
 import pymysql
-import mysql.connector
 class sqlconnector(object):
     def __init__(self, host, user, passwd, database):
         self.db = pymysql.connect(host=host, user=user, passwd=passwd)
